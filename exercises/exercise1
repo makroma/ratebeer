@@ -1,0 +1,11 @@
+brew = Brewery.new name:"BrewDog", year:2007
+brew.save
+brew.beers.create name:"Punk IPA", style:"IPA"
+brew.beers.create name:"Nanny State", style:"lowalcohol"
+b = Beer.find_by name:"Nanny State"
+b.ratings.create score:5
+b.ratings.create score:20
+b = Beer.find_by name:"Punk IPA"
+b.ratings.create score:25
+b.ratings.create score:40
+
