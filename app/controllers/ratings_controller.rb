@@ -10,17 +10,23 @@ class RatingsController < ApplicationController
     @beers = Beer.all
   end
   def create
-  		#ensin requirella otetaan paramsin sisältä luotavan olion tiedot sisältävä hash
-  		#luetellaan permitillä ne kentät, joiden arvon massasijoitus sallitaan
-  	 Rating.create params.require(:rating).permit(:score, :beer_id)
-
-  	 # reittauksen luomisen jälkeen käyttäjän selain uudelleenohjataan 
-  	 #kaikki reittaukset sisältävälle sivulle
-  	 redirect_to ratings_path
+		#ensin requirella otetaan paramsin sisältä luotavan olion tiedot sisältävä hash
+		#luetellaan permitillä ne kentät, joiden arvon massasijoitus sallitaan
+    @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
+    
+    if @rating.save
+      current_user.ratings << @rating
+      redirect_to user_path current_user
+    else
+      @beers = Beer.all
+      render :new
+    end
   end
+
+
   def destroy
     rating = Rating.find(params[:id])
     rating.delete
-    redirect_to ratings_path
+    redirect_to :back
   end
 end
