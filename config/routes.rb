@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  resources :beer_clubs
+
   resources :users
 
   resources :beers
 
   resources :breweries
+
+  resources :memberships
 
   #panimoiden listasta sovelluksen oletusarvoinen kotisivu
   root 'breweries#index'
@@ -22,6 +26,8 @@ Rails.application.routes.draw do
   delete 'signout', to: 'sessions#destroy'
 
   get 'signup', to: 'users#new'
+
+  get 'memberships/new', to: 'memberships#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

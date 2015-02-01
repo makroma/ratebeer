@@ -1,4 +1,4 @@
-class RatingsController < ApplicationController
+  class RatingsController < ApplicationController
 	def index
 		#Jätetään pois koska oletusarvoinen index...
 		@ratings = Rating.all
@@ -26,7 +26,7 @@ class RatingsController < ApplicationController
 
   def destroy
     rating = Rating.find(params[:id])
-    rating.delete
+    rating.delete if current_user == rating.user
     redirect_to :back
   end
 end
