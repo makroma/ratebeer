@@ -12,4 +12,7 @@ script:
  deploy:
   provider: heroku
   api_key: 214c2567-e0f5-47cb-a364-38af8ee0cced
-  run: "rake db:migrate"
+  app: ratebeer
+  on: 
+    repo: makroma/ratebeer
+  run: rake db:migrate 
