@@ -1,3 +1,0 @@
-
-
-Linkki herokuun: https://aqueous-island-8297.herokuapp.com/breweries

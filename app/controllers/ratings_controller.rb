@@ -13,9 +13,11 @@
 		#ensin requirella otetaan paramsin sisältä luotavan olion tiedot sisältävä hash
 		#luetellaan permitillä ne kentät, joiden arvon massasijoitus sallitaan
     @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
-    
-    if @rating.save
-      current_user.ratings << @rating
+
+    if current_user.nil?
+      redirect_to signin_path, notice:'you should be signed in'
+    elsif @rating.save
+      current_user.ratings << @rating  ## virheen aiheuttanut rivi
       redirect_to user_path current_user
     else
       @beers = Beer.all
@@ -27,6 +29,6 @@
   def destroy
     rating = Rating.find(params[:id])
     rating.delete if current_user == rating.user
-    redirect_to :back
+    redirect_to :back 
   end
 end

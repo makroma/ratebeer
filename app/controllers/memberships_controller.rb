@@ -6,27 +6,56 @@ class MembershipsController < ApplicationController
   end
 
   def new
+    @beer_clubs = BeerClub.all.reject{ |b| b.members.include? current_user }
     @membership = Membership.new
-    @beerclubs = BeerClub.all
   end
+
   def create
     #ensin requirella otetaan paramsin sisältä luotavan olion tiedot sisältävä hash
     #luetellaan permitillä ne kentät, joiden arvon massasijoitus sallitaan
-    @membership = Membership.new params.require(:membership).permit(:beer_club_id)
+    @membership = Membership.new (membership_params)
+    @membership.user = current_user
     
-    if @membership.save
-      current_user.memberships << @membership
-      redirect_to user_path current_user
-    else
-      @beerclubs = BeerClub.all
-      render :new
+    respond_to do |format|
+      if @membership.save
+        format.html { redirect_to current_user, notice: "You just joined #{@membership.beer_club.name}" }
+        format.json { render :show, status: :created, location: @membership }
+      else
+        @beerclubs = BeerClub.all.reject{ |b| b.members.include? current_user }
+        format.html { render :new }
+        format.json { render json: @membership.errors, status: :unprocessable_entity }
+      end
     end
   end
 
+  def update
+    respond_to do |format|
+      if @membership.update(membership_params)
+        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.json { render :show, status: :ok, location: @membership }
+      else
+        format.html { render :edit }
+        format.json { render json: @membership.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def destroy
-    rating = Rating.find(params[:id])
-    rating.delete
-    redirect_to :back
+    @membership.destroy
+    respond_to do |format|
+      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_membership
+    @membership = Membership.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def membership_params
+    params.require(:membership).permit(:user_id, :beer_club_id)
   end
 end
