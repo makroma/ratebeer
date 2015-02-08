@@ -2,6 +2,7 @@ require 'rails_helper'
 
 
 include OwnTestHelper
+require 'spec_helper'
 
 
 describe "User" do

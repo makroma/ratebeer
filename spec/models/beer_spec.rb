@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Beer, type: :model do
   	describe "with a proper name and style" do
