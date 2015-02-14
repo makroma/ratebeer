@@ -1,31 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @brewery.name %>
-</p>
+<h2><%= @brewery.name %></h2>
 
-<p>
-  <strong>Year:</strong>
+<em>
+  established in
   <%= @brewery.year %>
+</em>
+
+<p> Number of beers
+  <%= @brewery.beers.count %>
 </p>
 
-<h1>Beers</h1>
-<p>beer count <%= @brewery.beers.count %></p>
-<p>
-<ul>	
- <% @brewery.beers.each do |beer| %>
-   <li><%= link_to beer.name, beer%> </li>
+<ul>
+ <% @brewery.beers.each do |brewery| %>
+  <li>
+    <%= link_to brewery.name, brewery %>
+  </li>
  <% end %>
-</p>
-<p>
-    <% if @brewery.ratings.empty? %>
-    not rated!
-    <% else %>
-    Has <%= @brewery.ratings.count %> <%= "rating".pluralize(@brewery.ratings.count) %>, average <%= @brewery.average_rating%>
-    <% end %>
-</p>	
 </ul>
 
-<%= link_to 'Edit', edit_brewery_path(@brewery) %> |
-<%= link_to 'Back', breweries_path %>
+<% if @brewery.ratings.empty? %>
+  beers of the brewery has not yet been rated!
+<% else %>
+  Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
+<% end %>
+
+<br>
+
+<%= link_to 'Edit', edit_brewery_path(@brewery) if current_user %>

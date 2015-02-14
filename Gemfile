@@ -16,6 +16,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'rspec-its'
 end
 
 ruby '2.2.0'

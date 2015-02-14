@@ -4,11 +4,6 @@ FactoryGirl.define do
     password "Foobar1"
     password_confirmation "Foobar1"
   end
-  factory :user2 do
-    username "Pekka"
-    password "Foobar1"
-    password_confirmation "Foobar1"
-  end
 
   factory :rating do
     score 10
@@ -16,14 +11,9 @@ FactoryGirl.define do
 
   factory :rating2, class: Rating do
     score 20
+  end
 
-  end
-  factory :rating3 do
-    score 10
-    user
-    beer
-  end
-    factory :brewery do
+  factory :brewery do
     name "anonymous"
     year 1900
   end
