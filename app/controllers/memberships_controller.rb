@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  
   def index
     #Jätetään pois koska oletusarvoinen index...
     @memberships = Memberships.all
