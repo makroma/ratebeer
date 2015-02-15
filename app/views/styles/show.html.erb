@@ -9,6 +9,15 @@
   <strong>Description:</strong>
   <%= @style.description %>
 </p>
+<ul>
+<% if @style.beers.any? %>
+	<%= @style.beers.each do |b| %>
+		<li><%= link_to b.name, beer_path(b) %></li>
+	<% end %>
+<% end %> 
+</ul>
+
+
 
 <%= link_to 'Edit', edit_style_path(@style) %> |
 <%= link_to 'Back', styles_path %>
