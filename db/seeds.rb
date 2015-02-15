@@ -6,14 +6,26 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-b1 = Brewery.create name:"Koff", year:1897
-b2 = Brewery.create name:"Malmgard", year:2001
-b3 = Brewery.create name:"Weihenstephaner", year:1042
+brew1 = Brewery.create name:"Koff", year:1897
+brew2 = Brewery.create name:"Malmgard", year:2001
+brew3 = Brewery.create name:"Weihenstephaner", year:1042
 
-b1.beers.create name:"Iso 3", style:"Lager"
-b1.beers.create name:"Karhu", style:"Lager"
-b1.beers.create name:"Tuplahumala", style:"Lager"
-b2.beers.create name:"Huvila Pale Ale", style:"Pale Ale"
-b2.beers.create name:"X Porter", style:"Porter"
-b3.beers.create name:"Hefezeizen", style:"Weizen"
-b3.beers.create name:"Helles", style:"Lager"
+b1 = Beers.create name:"Iso 3"
+b2 = Beers.create name:"Karhu"
+b3 = Beers.create name:"Huvila Pale Ale"
+b4 = Beers.create name:"Hefezeizen"
+b5 = Beers.create name:"Helles"
+b6 = Beers.create name:"X Porter"
+
+
+s1 = Style.create name:"Lager"
+s2 = Style.create name:"Pale ale"
+s3 = Style.create name:"Porter"
+s4 = Style.create name:"Weizen"
+
+s1.beers << b1
+s1.beers << b2
+s2.beers << b3
+s2.beers << b4
+
+
