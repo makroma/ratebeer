@@ -3,7 +3,7 @@ class MembershipsController < ApplicationController
   
   def index
     #Jätetään pois koska oletusarvoinen index...
-    @memberships = Memberships.all
+    @memberships = Membership.all
     render :index    # renderöin näkymätemplate /app/views/memberships/index.html
   end
 
@@ -20,7 +20,7 @@ class MembershipsController < ApplicationController
     
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to current_user, notice: "You just joined #{@membership.beer_club.name}" }
+        format.html { redirect_to @membership.beer_club, notice: "You just joined #{@membership.beer_club.name}" }
         format.json { render :show, status: :created, location: @membership }
       else
         @beerclubs = BeerClub.all.reject{ |b| b.members.include? current_user }
@@ -45,7 +45,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

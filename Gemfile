@@ -17,11 +17,13 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'rspec-its'
+  gem 'webmock'
 end
 
 ruby '2.2.0'
 
 
+gem 'httparty'
 #Some security
 gem 'bcrypt', '~> 3.1.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
