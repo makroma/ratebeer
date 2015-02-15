@@ -31,6 +31,10 @@
         1,
         null
       ],
+      "/Users/marko/git/ratebeer/app/helpers/styles_helper.rb": [
+        1,
+        null
+      ],
       "/Users/marko/git/ratebeer/app/helpers/users_helper.rb": [
         1,
         null
@@ -42,8 +46,9 @@
         1,
         1,
         1,
-        null,
         1,
+        null,
+        null,
         1,
         null,
         1,
@@ -181,7 +186,7 @@
         null,
         1,
         1,
-        24,
+        20,
         null,
         1,
         null,
@@ -214,35 +219,35 @@
         null,
         null,
         1,
-        3,
-        6,
-        6,
+        1,
+        0,
+        0,
         null,
         null,
         1,
-        3,
-        6,
-        6,
+        1,
+        0,
+        0,
         null,
         null,
         null,
         null,
         1,
-        10,
+        0,
         null,
         null,
         1,
-        26,
-        12,
+        0,
+        0,
         null,
         null,
         1,
-        10,
+        0,
         null,
         null,
         1,
-        26,
-        12,
+        0,
+        0,
         null,
         null
       ],
@@ -400,6 +405,16 @@
         null,
         null
       ],
+      "/Users/marko/git/ratebeer/app/models/style.rb": [
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
       "/Users/marko/git/ratebeer/app/controllers/sessions_controller.rb": [
         1,
         1,
@@ -546,6 +561,6 @@
         null
       ]
     },
-    "timestamp": 1424016992
+    "timestamp": 1424024786
   }
 }

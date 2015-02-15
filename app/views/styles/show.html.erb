@@ -10,9 +10,10 @@
   <%= @style.description %>
 </p>
 <ul>
+
 <% if @style.beers.any? %>
-	<%= @style.beers.each do |b| %>
-		<li><%= link_to b.name, beer_path(b) %></li>
+	<% @style.beers.each do |b| %>
+		<li><%= b.name %></li>
 	<% end %>
 <% end %> 
 </ul>
