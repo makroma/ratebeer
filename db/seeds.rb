@@ -17,6 +17,12 @@ b4 = Beer.create name:"Hefezeizen"
 b5 = Beer.create name:"Helles"
 b6 = Beer.create name:"X Porter"
 
+brew1.beers << b1
+brew1.beers << b2
+brew1.beers << b3
+brew1.beers << b4
+brew1.beers << b5
+brew1.beers << b6
 
 s1 = Style.create name:"Lager"
 s2 = Style.create name:"Pale ale"
