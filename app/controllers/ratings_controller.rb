@@ -2,6 +2,10 @@
 	def index
 		#Jätetään pois koska oletusarvoinen index...
 		@ratings = Rating.all
+    @three_beers = Beer.top 3
+    @three_breweries = Brewery.top 3
+    @three_users = User.top 3
+    @three_styles = Style.top 3
 		render :index    # renderöin näkymätemplate /app/views/ratings/index.html
 	end
 
@@ -9,6 +13,7 @@
     @rating = Rating.new
     @beers = Beer.all
   end
+
   def create
 		#ensin requirella otetaan paramsin sisältä luotavan olion tiedot sisältävä hash
 		#luetellaan permitillä ne kentät, joiden arvon massasijoitus sallitaan

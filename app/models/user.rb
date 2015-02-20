@@ -15,6 +15,21 @@ class User < ActiveRecord::Base
 
   validates :password, format: { with: /\d.*[A-Z]|[A-Z].*\d/,  message: "has to contain one number and one upper case letter" }
 
+  def to_s
+    "#{self.username}"
+  end  
+
+
+  def average
+    return 0 if ratings.empty?
+      ratings.map{ |r| r.score }.sum / ratings.count.to_f
+  end
+
+  def self.top(n)
+     sorted_by_rating_in_desc_order = self.all.sort_by{ |b| -(b.average) }.take(n)
+  end
+
+
   def favorite_beer
     return nil if ratings.empty?
     ratings.order(score: :desc).limit(1).first.beer

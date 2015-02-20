@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass'
+
 group :development, :test do
   gem 'sqlite3'
   gem "better_errors"
   gem 'rspec-rails', '~> 3.0'
+  gem 'rails_layout'
 end
 
 group :production do

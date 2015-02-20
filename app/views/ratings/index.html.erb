@@ -1,13 +1,52 @@
 
 <h2>List of ratings</h2>
+<div class="row">
+	<div class="col-md-8">
+		<h4>Total of <%= @ratings.count %> ratings given</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<h4>Three top beers</h4>
+		<%= render 'list', objects: @three_beers %>
+	</div>
+	<div class="col-md-4">
+		<h4>Three top breweries</h4>
+		<%= render 'list', objects: @three_breweries %>
+	</div>
+	<div class="col-md-4">
+		<h4>Three top style</h4>
+		<%= render 'list', objects: @three_styles %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h4>Three top users</h4>
+		<%= render 'list', objects: @three_users %>
+	</div>
+</div>
+<h4>Recent raters</h4>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Beer</th>
+    <th>Rate</th>
+    <th>Rater</th>
+  </tr>
+  </thead>
 
-Total of <%= @ratings.count %> ratings given
-
-<ul>
-  <% @ratings.each do |rating| %>
-    <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
+  <tbody>
+  <% @ratings.each do |o| %>
+      <tr>
+        <td><%= o.beer %></td>
+        <td><%= round(o.score) %></td>
+        <td><%= link_to o.user.username, o.user %></td>
+      </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>
+
+
 
 <%= link_to 'New Rating', new_rating_path if current_user %>
   	
