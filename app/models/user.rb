@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
   def favorite_style
     favorite :style
   end
+  def favorite_beer
+    favorite :beer
+  end
 
   def favorite(category)
     return nil if ratings.empty?
