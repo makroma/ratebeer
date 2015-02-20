@@ -15,6 +15,13 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= link_to 'Show', user %></td>
+        <% if current_user && current_user.admin? %>
+          <td>
+            <% if user.frozen_account %>
+              <p class="btn-sm btn-primary ">Account frozen</p>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

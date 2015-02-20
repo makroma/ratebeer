@@ -19,6 +19,13 @@ Rails.application.routes.draw do
 
   resources :ratings, only: [:index, :new, :create, :destroy]
 
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+
+  resources :users do
+    post 'toggle_frozen', on: :member
+  end
 
   root 'breweries#index'
 

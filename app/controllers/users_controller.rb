@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        @user.update_attribute(:admin, false)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -49,6 +50,15 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def toggle_frozen
+    user = User.find(params[:id])
+    user.update_attribute :frozen_account, (not user.frozen_account)
+
+    new_status = user.frozen_account? ? "frozen" : "non-frozen"
+
+    redirect_to :back, notice:"user activity status changed to #{new_status}"
   end
 
   # DELETE /users/1
