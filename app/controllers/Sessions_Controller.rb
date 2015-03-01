@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  require 'securerandom'
+
   def new
     # renderöi kirjautumissivun
   end
@@ -14,6 +16,20 @@ class SessionsController < ApplicationController
       redirect_to :back, notice: "Username and/or password mismatch"
     end
   end
+
+  def create_oauth
+    user = User.find_by username: env["omniauth.auth"].info.nickname
+    if user
+      session[:user_id] = user.id
+      redirect_to user_path(user), notice: "Welcome back!"
+    else 
+      random_string = SecureRandom.hex
+      @user = User.new username: env["omniauth.auth"].info.nickname, password: random_string, password_confirmation: random_string
+      @user.update_attribute(:admin, false)  
+      @user.save
+      redirect_to user_path(@user), notice: "Welcome"
+    end
+  end  
 
   def destroy
     # nollataan sessio

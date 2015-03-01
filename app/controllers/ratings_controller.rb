@@ -1,12 +1,14 @@
   class RatingsController < ApplicationController
+
+
 	def index
-		#Jätetään pois koska oletusarvoinen index...
-		@ratings = Rating.all
-    @three_beers = Beer.top 3
-    @three_breweries = Brewery.top 3
-    @three_users = User.top 3
-    @three_styles = Style.top 3
-		render :index    # renderöin näkymätemplate /app/views/ratings/index.html
+    #@breweries = Brewery.top(3)
+    #Rails.cache.write("beer top 3", Beer.top(3)) 
+    @beers = Beer.top(3)
+    #@styles = Style.top(3)
+    @users = User.most_active(5)
+
+    @ratings = Rating.recent
 	end
 
 	def new
@@ -29,11 +31,9 @@
       render :new
     end
   end
-
-
   def destroy
     rating = Rating.find(params[:id])
     rating.delete if current_user == rating.user
     redirect_to :back 
-  end
+  end   
 end

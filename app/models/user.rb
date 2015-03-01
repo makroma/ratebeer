@@ -15,18 +15,26 @@ class User < ActiveRecord::Base
 
   validates :password, format: { with: /\d.*[A-Z]|[A-Z].*\d/,  message: "has to contain one number and one upper case letter" }
 
-  def to_s
-    "#{self.username}"
-  end  
-
-
-  def average
-    return 0 if ratings.empty?
-      ratings.map{ |r| r.score }.sum / ratings.count.to_f
+  def self.most_active(n)
+    sorted_by_rating_in_desc_order = User.all.select{ |u| u.ratings.any? }.sort_by{ |u| -(u.ratings.count) }
+    sorted_by_rating_in_desc_order[0..(n-1)]
   end
 
-  def self.top(n)
-     sorted_by_rating_in_desc_order = self.all.sort_by{ |b| -(b.average) }.take(n)
+  def favorite_beer
+    return nil if ratings.empty?
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
+  def favorite(category)
+    return nil if ratings.empty?
+
+    categroy_ratings = rated(category).inject([]) do |set, item|
+      set << {
+        item: item,
+        rating: rating_of(category, item) }
+    end
+
+    categroy_ratings.sort_by { |item| item[:rating] }.last[:item]
   end
 
   def favorite_brewery
@@ -35,21 +43,6 @@ class User < ActiveRecord::Base
 
   def favorite_style
     favorite :style
-  end
-  def favorite_beer
-    favorite :beer
-  end
-
-  def favorite(category)
-    return nil if ratings.empty?
-
-    category_ratings = rated(category).inject([]) do |set, item|
-      set << {
-        item: item,
-        rating: rating_of(category, item) }
-    end
-
-    category_ratings.sort_by { |item| item[:rating] }.last[:item]
   end
 
   def rated(category)
@@ -61,5 +54,13 @@ class User < ActiveRecord::Base
       r.beer.send(category) == item
     end
     ratings_of_item.map(&:score).sum / ratings_of_item.count
+  end
+
+  def rating_of_style(style)
+    rating_of :style, style
+  end
+
+  def rating_of_brewery(brewery)
+    rating_of :brewery, brewery
   end
 end

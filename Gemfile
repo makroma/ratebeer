@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
+gem 'jquery-turbolinks'
+gem 'rack-mini-profiler'
+gem 'omniauth-github'
 
 group :development, :test do
   gem 'sqlite3'
@@ -15,6 +18,8 @@ group :production do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
